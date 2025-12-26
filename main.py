@@ -25,10 +25,10 @@ async def lifespan(app: FastAPI):
         model_type = "MiDaS_small"
         
         # Load the main model
-        midas = torch.hub.load("intel-isl/MiDaS", model_type)
+        midas = torch.hub.load("intel-isl/MiDaS", model_type,trust_repo=True)
         
         # Load the transformation function
-        midas_transforms = torch.hub.load("intel-isl/MiDaS", "transforms")
+        midas_transforms = torch.hub.load("intel-isl/MiDaS", "transforms",trust_repo=True)
         transform = midas_transforms.small_transform
 
         # Validation to ensure models loaded
@@ -164,3 +164,4 @@ async def websocket_endpoint(websocket: WebSocket):
 async def read_root():
     return {"message": "FastAPI server is running. Connect to /ws for WebSocket."}
     
+
