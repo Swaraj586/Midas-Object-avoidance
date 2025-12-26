@@ -3,7 +3,9 @@ torch==2.2.0+cpu
 torchvision==0.17.0+cpu
 timm
 fastapi
-uvicorn
+uvicorn[standard]
+websockets
 opencv-python-headless
 numpy
+
 
