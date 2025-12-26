@@ -1,9 +1,8 @@
-﻿fastapi
-uvicorn
-torch>=2.5.0
-torchvision>=0.20.0
-
-opencv-python-headless
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.2.0
+torchvision>=0.17.0
 timm
+fastapi
+uvicorn
+opencv-python-headless
 numpy
-
