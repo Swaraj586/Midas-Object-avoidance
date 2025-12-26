@@ -88,7 +88,8 @@ def process_frame_for_navigation(img_rgb,nav):
         "Center": (int(0.33 * img_width), int(0.66 * img_width)),
         "Right": (int(0.66 * img_width), img_width)
     }
-
+    del input_batch
+    del prediction
     # Analyze Segments
     segment_avg_depths = {}
     for name, (start, end) in segments.items():
@@ -165,5 +166,6 @@ async def websocket_endpoint(websocket: WebSocket):
 async def read_root():
     return {"message": "FastAPI server is running. Connect to /ws for WebSocket."}
     
+
 
 
