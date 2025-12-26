@@ -6,7 +6,7 @@ import cv2
 import time
 import torch
 import base64
-
+import gc
 
 
 
@@ -23,10 +23,13 @@ async def lifespan(app: FastAPI):
     print("Loading MiDaS model...")
     try:
         model_type = "MiDaS_small"
-        
-        # Load the main model
+        device = torch.device("cpu")
         midas = torch.hub.load("intel-isl/MiDaS", model_type,trust_repo=True)
+        midas.to(device)
+        midas.eval()
+        # Load the main model
         
+        gc.collect()
         # Load the transformation function
         midas_transforms = torch.hub.load("intel-isl/MiDaS", "transforms",trust_repo=True)
         transform = midas_transforms.small_transform
@@ -35,9 +38,7 @@ async def lifespan(app: FastAPI):
         if midas is None or transform is None:
             raise RuntimeError("Failed to load MiDaS model or transforms from torch.hub.")
 
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        midas.to(device)
-        midas.eval()
+        
         
         print(f"MiDaS model loaded successfully on device: {device}")
     
@@ -164,4 +165,5 @@ async def websocket_endpoint(websocket: WebSocket):
 async def read_root():
     return {"message": "FastAPI server is running. Connect to /ws for WebSocket."}
     
+
 
