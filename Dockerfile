@@ -27,4 +27,4 @@ RUN python -c "import torch; torch.hub.load('intel-isl/MiDaS', 'MiDaS_small', tr
 COPY . .
 
 # Start the application using the PORT variable assigned by Render
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-80}
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000}
